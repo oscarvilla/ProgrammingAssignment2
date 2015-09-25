@@ -1,8 +1,8 @@
 ## This pair of functions cache the inverse of a matrix
 ##If matrix inverse has been calculated, cached it. If not, calculate it
 
-## This function creates a special "matrix" object that can cache its
-## inverse if these has been calculated
+## This function creates a special list of objetcs wich elements are
+##function to set and get the matrix and set and get its inverse
 
 makeCacheMatrix <- function(x = matrix()) {
         ##'m' is the inverse of the matrix
@@ -10,11 +10,11 @@ makeCacheMatrix <- function(x = matrix()) {
         set <- function(y) {
                 ##the value of 'y' is passed to 'x' on the external
                 ##environment to be calculate by the another function
-                ##wich call to m$set
                 x <<- y 
-                m <<- NULL ##then 'm' is set up NULL
+                m <<- NULL
+        ##then 'm' and 'x' are setup NULL out of this environment
         }
-        ##'y' has been received as 'x' from the previous function
+        ##this functions will be passed out as a list
         get <- function() x
         ##the inverse of matrix x is calculate through an anonymous fun
         setinv <- function(inv) m <<- inv
@@ -22,13 +22,12 @@ makeCacheMatrix <- function(x = matrix()) {
         list(set = set, get = get,
              setinv = setinv,
              getinv = getinv)
-        ##arguments calculations are passed as a list 'm$set', 'm$get'
-        ##'m$getinv' and 'm$setinv'
+        ##arguments calculations are passed as a list wich elements
+        ##can be called as'm$set', 'm$get', 'm$getinv' and 'm$setinv'
 }
 
-
-##This function cache the inverse of the matrix 'x' is these has been
-##calculated. If not, calculate it
+##This function cache the inverse of the matrix 'x' is this has been
+##calculated. If not, calculate it calling to another functions
 
 cacheSolve <- function(x, ...) {
         ##the value of the inverse of the matrix 'x' is cached as 
